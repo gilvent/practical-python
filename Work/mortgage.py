@@ -21,9 +21,13 @@ def calculateWithExtraPayment(
 
         principal = principal * (1 + rate / 12) - payment
         total_payment += payment
+        print(month, total_payment, principal)
 
-    return [round(total_payment, 2), month]
+    return [round(total_payment, 2), month, principal]
 
 
-[total_payment, months_required] = calculateWithExtraPayment(500000.0, 0.05,2684.11, 61, 108, 1000)
-print(total_payment, months_required)
+[total_payment, months_required, principal] = calculateWithExtraPayment(500000.0, 0.05,2684.11, 61, 108, 1000)
+
+print('Total payment', total_payment)
+print('Months', months_required)
+
