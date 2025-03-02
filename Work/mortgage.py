@@ -32,9 +32,29 @@ def calculateWithExtraPayment(
     return [round(total_payment, 2), month]
 
 
-[total_payment, months_required] = calculateWithExtraPayment(
-    500000.0, 0.05, 2684.11, 61, 108, 1000
-)
+def getMortgageInfo():
+    principal = 500000.0
+    rate = 0.05
+    monthly_payment = 2684.11
+    extra_payment_start_month = 61
+    extra_payment_end_month = 108
+    extra_payment = 1000
 
-print("Total payment", total_payment)
-print("Months", months_required)
+    [total_payment, months_required] = calculateWithExtraPayment(
+        principal,
+        rate,
+        monthly_payment,
+        extra_payment_start_month,
+        extra_payment_end_month,
+        extra_payment,
+    )
+
+    return f"""
+If you are taking a mortgage with {principal} principal, {rate} rate and {monthly_payment} monthly payment,
+and you want to pay {extra_payment} more starting from month {extra_payment_start_month} to month {extra_payment_end_month}.
+
+You will be paying {total_payment} in {months_required} months.
+"""
+
+
+print(getMortgageInfo())
