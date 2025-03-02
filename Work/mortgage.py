@@ -1,7 +1,7 @@
 # mortgage.py
 #
 # Exercise 1.9 Extra Payments on Custom Period
-def calculateWithExtraPayment(
+def mortgage_with_extra_payment(
     principal,
     rate,
     monthly_payment,
@@ -32,7 +32,7 @@ def calculateWithExtraPayment(
     return [round(total_payment, 2), month]
 
 
-def getMortgageInfo():
+def mortgage_info():
     principal = 500000.0
     rate = 0.05
     monthly_payment = 2684.11
@@ -40,7 +40,7 @@ def getMortgageInfo():
     extra_payment_end_month = 108
     extra_payment = 1000
 
-    [total_payment, months_required] = calculateWithExtraPayment(
+    [total_payment, months_required] = mortgage_with_extra_payment(
         principal,
         rate,
         monthly_payment,
@@ -57,4 +57,4 @@ You will be paying {total_payment} in {months_required} months.
 """
 
 
-print(getMortgageInfo())
+print(mortgage_info())
