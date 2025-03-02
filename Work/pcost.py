@@ -1,20 +1,21 @@
 # pcost.py
 #
 # Exercise 1.27
+import csv
+
 def portfolio_cost(path):
     with open(path, 'rt') as file:
+        rows = csv.reader(file)
         next(file)
         total_price = 0
-
-        for row in file:
-            row_data = row.removesuffix('\n').split(',')
+        for row in rows:
             try:
-                shares = int(row_data[1])
-                price = float(row_data[2])
+                shares = int(row[1])
+                price = float(row[2])
                 total_price += shares * price
             except ValueError:
-                print(f'Price for {row_data[0]} cannot be calculated due to missing value')
+                print(f'Price for {row[0]} cannot be calculated due to missing value')
         return total_price
     
-cost = portfolio_cost('Data/missing.csv')
+cost = portfolio_cost('Data/portfolio.csv')
 print(cost)
