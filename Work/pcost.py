@@ -2,6 +2,7 @@
 #
 # Exercise 1.27
 import csv
+import sys
 
 def portfolio_cost(path):
     with open(path, 'rt') as file:
@@ -17,5 +18,10 @@ def portfolio_cost(path):
                 print(f'Price for {row[0]} cannot be calculated due to missing value')
         return total_price
     
-cost = portfolio_cost('Data/portfolio.csv')
+if len(sys.argv) == 2:
+    filename = sys.argv[1] 
+else:
+    filename = 'Data/portfolio.csv'
+
+cost = portfolio_cost(filename)
 print(cost)
