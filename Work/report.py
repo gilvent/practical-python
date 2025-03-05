@@ -16,3 +16,19 @@ def read_portfolio(filename):
             }
             portfolio.append(holding)
     return portfolio
+
+def read_prices(filename):
+    prices = {}
+    issue_count = 0
+    with open(filename, 'rt') as file:
+        rows = csv.reader(file)
+
+        for row in rows:
+            try:
+                prices[row[0]] = row[1]
+            except:
+                issue_count += 1
+    
+    print(f'Found {issue_count} rows with issue')
+
+    return prices
