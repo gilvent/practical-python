@@ -4,24 +4,28 @@
 import csv
 import sys
 
+
 def portfolio_cost(path):
-    with open(path, 'rt') as file:
+    with open(path, "rt") as file:
         rows = csv.reader(file)
         next(file)
         total_price = 0
-        for row in rows:
+        for index, row in enumerate(rows):
             try:
                 shares = int(row[1])
                 price = float(row[2])
                 total_price += shares * price
             except ValueError:
-                print(f'Price for {row[0]} cannot be calculated due to missing value')
+                print(f"Row {index + 1}: Couldn't convert {str(row)}")
         return total_price
-    
+
+
+# Enable to run this command in terminal
+# python3 pcost.py Data/missing.csv
 if len(sys.argv) == 2:
-    filename = sys.argv[1] 
+    filename = sys.argv[1]
 else:
-    filename = 'Data/portfolio.csv'
+    filename = "Data/portfolio.csv"
 
 cost = portfolio_cost(filename)
 print(cost)
