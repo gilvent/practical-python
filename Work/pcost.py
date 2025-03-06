@@ -10,13 +10,13 @@ def portfolio_cost(path):
         rows = csv.reader(file)
         next(file)
         total_price = 0
-        for index, row in enumerate(rows):
+        for index, row in enumerate(rows, start = 1):
             try:
                 shares = int(row[1])
                 price = float(row[2])
                 total_price += shares * price
             except ValueError:
-                print(f"Row {index + 1}: Couldn't convert {str(row)}")
+                print(f"Row {index}: Couldn't convert {str(row)}")
         return total_price
 
 

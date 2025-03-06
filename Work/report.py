@@ -21,11 +21,11 @@ def read_prices(filename):
     with open(filename, "rt") as file:
         rows = csv.reader(file)
 
-        for index, row in enumerate(rows):
+        for index, row in enumerate(rows, start = 1):
             try:
                 prices[row[0]] = float(row[1])
             except:
-                print(f"Found issue in row {index + 1} when reading {filename}")
+                print(f"Found issue in row {index} when reading {filename}")
 
     return prices
 
