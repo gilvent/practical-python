@@ -4,6 +4,7 @@
 import csv
 from collections import Counter
 
+
 def read_portfolio(filename):
     portfolio = []
     with open(filename, "rt") as file:
@@ -56,6 +57,7 @@ def make_report(portfolio, prices):
         )
     return report
 
+
 # exercise 2.10 string formatting
 def print_report():
     portfolio = read_portfolio("Data/portfoliodate.csv")
@@ -89,18 +91,38 @@ def print_report():
     for r in report:
         print("%16s %16d %16s %16.2f %16s %16.2f %16.2f %16s" % r)
 
+
 # Exercise 2.18 Tabulating with Counter
 def combine_shares():
-    portfolio1 = read_portfolio('Data/portfolio.csv')
-    portfolio2 = read_portfolio('Data/portfolio2.csv')
+
+    portfolio1 = read_portfolio("Data/portfolio.csv")
+    portfolio2 = read_portfolio("Data/portfolio2.csv")
 
     holdings1 = Counter()
     for p1 in portfolio1:
-        holdings1[p1['name']] += p1['shares']
+        holdings1[p1["name"]] += p1["shares"]
 
     holdings2 = Counter()
     for p2 in portfolio2:
-        holdings2[p2['name']] += p2['shares']
+        holdings2[p2["name"]] += p2["shares"]
 
     # Counter automatically adds value of the same key from different Counter
     return holdings1 + holdings2
+
+
+# Exercise 2.21 List comprehension
+def total_portfolio_cost(portfolio_file):
+    portfolio = read_portfolio(portfolio_file)
+
+    return sum([stock["shares"] * stock["price"] for stock in portfolio])
+
+def filtered_portfolios(portfolio_file, cost_larger_than = 10000):
+    portfolio = read_portfolio(portfolio_file)
+
+    return [s for s in portfolio if s['shares'] * s['price'] > cost_larger_than]
+
+# portfolios_by_name('Data/portfolio.csv', {'MSFT'})
+def portfolios_by_name(portfolio_file, names_filter):
+    portfolio = read_portfolio(portfolio_file)
+
+    return [s for s in portfolio if s["name"] in names_filter]
