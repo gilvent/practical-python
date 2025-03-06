@@ -4,7 +4,8 @@
 import csv
 from collections import Counter
 
-
+## Also read some tricks about zipping and typing
+### https://dabeaz-course.github.io/practical-python/Notes/02_Working_with_data/07_Objects.html
 def read_portfolio(filename):
     portfolio = []
     with open(filename, "rt") as file:
