@@ -46,12 +46,12 @@ def make_report(portfolio, prices):
             (
                 stock["name"],
                 stock["shares"],
-                stock["price"],
+                f"${stock["price"]:>0.2f}",
                 buy_value,
-                prices[stock["name"]],
+                f"${prices[stock["name"]]:>0.2f}",
                 market_value,
                 unrealized_value,
-                status
+                status,
             )
         )
     return report
@@ -61,5 +61,29 @@ portfolio = read_portfolio("Data/portfolio.csv")
 prices = read_prices("Data/prices.csv")
 report = make_report(portfolio, prices)
 
+headers = "%16s %16s %16s %16s %16s %16s %16s %16s" % (
+    "Name",
+    "Shares",
+    "Buy Price",
+    "Buy value",
+    "Market Price",
+    "Market Value",
+    "Unrealized",
+    "Status",
+)
+divider = "----------------"
+dividers = "%16s %16s %16s %16s %16s %16s %16s %16s" % (
+    divider,
+    divider,
+    divider,
+    divider,
+    divider,
+    divider,
+    divider,
+    divider,
+)
+
+print(headers)
+print(dividers)
 for r in report:
-    print(r)
+    print("%16s %16d %16s %16.2f %16s %16.2f %16.2f %16s" % r)
