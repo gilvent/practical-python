@@ -7,21 +7,23 @@ import csv
 def read_portfolio(filename):
     portfolio = []
     with open(filename, "rt") as file:
-        rows = csv.reader(file)
-        next(rows)
-        for row in rows:
-            holding = {"name": row[0], "shares": int(row[1]), "price": float(row[2])}
+        reader = csv.reader(file)
+        headers = next(reader)
+        for row in reader:
+            holding = dict(zip(headers, row))
+            holding["shares"] = int(holding["shares"])
+            holding["price"] = float(holding["price"])
             portfolio.append(holding)
     return portfolio
 
 
 def read_prices(filename):
     prices = {}
-    issue_count = 0
-    with open(filename, "rt") as file:
-        rows = csv.reader(file)
 
-        for index, row in enumerate(rows, start = 1):
+    with open(filename, "rt") as file:
+        reader = csv.reader(file)
+
+        for index, row in enumerate(reader, start=1):
             try:
                 prices[row[0]] = float(row[1])
             except:
@@ -55,7 +57,7 @@ def make_report(portfolio, prices):
     return report
 
 
-portfolio = read_portfolio("Data/portfolio.csv")
+portfolio = read_portfolio("Data/portfoliodate.csv")
 prices = read_prices("Data/prices.csv")
 report = make_report(portfolio, prices)
 
