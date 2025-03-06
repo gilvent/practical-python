@@ -2,7 +2,7 @@
 #
 # Exercise 2.4
 import csv
-
+from collections import Counter
 
 def read_portfolio(filename):
     portfolio = []
@@ -56,34 +56,51 @@ def make_report(portfolio, prices):
         )
     return report
 
+# exercise 2.10 string formatting
+def print_report():
+    portfolio = read_portfolio("Data/portfoliodate.csv")
+    prices = read_prices("Data/prices.csv")
+    report = make_report(portfolio, prices)
 
-portfolio = read_portfolio("Data/portfoliodate.csv")
-prices = read_prices("Data/prices.csv")
-report = make_report(portfolio, prices)
+    headers = "%16s %16s %16s %16s %16s %16s %16s %16s" % (
+        "Name",
+        "Shares",
+        "Buy Price",
+        "Buy value",
+        "Market Price",
+        "Market Value",
+        "Unrealized",
+        "Status",
+    )
+    divider = "----------------"
+    dividers = "%16s %16s %16s %16s %16s %16s %16s %16s" % (
+        divider,
+        divider,
+        divider,
+        divider,
+        divider,
+        divider,
+        divider,
+        divider,
+    )
 
-headers = "%16s %16s %16s %16s %16s %16s %16s %16s" % (
-    "Name",
-    "Shares",
-    "Buy Price",
-    "Buy value",
-    "Market Price",
-    "Market Value",
-    "Unrealized",
-    "Status",
-)
-divider = "----------------"
-dividers = "%16s %16s %16s %16s %16s %16s %16s %16s" % (
-    divider,
-    divider,
-    divider,
-    divider,
-    divider,
-    divider,
-    divider,
-    divider,
-)
+    print(headers)
+    print(dividers)
+    for r in report:
+        print("%16s %16d %16s %16.2f %16s %16.2f %16.2f %16s" % r)
 
-print(headers)
-print(dividers)
-for r in report:
-    print("%16s %16d %16s %16.2f %16s %16.2f %16.2f %16s" % r)
+# Exercise 2.18 Tabulating with Counter
+def combine_shares():
+    portfolio1 = read_portfolio('Data/portfolio.csv')
+    portfolio2 = read_portfolio('Data/portfolio2.csv')
+
+    holdings1 = Counter()
+    for p1 in portfolio1:
+        holdings1[p1['name']] += p1['shares']
+
+    holdings2 = Counter()
+    for p2 in portfolio2:
+        holdings2[p2['name']] += p2['shares']
+
+    # Counter automatically adds value of the same key from different Counter
+    return holdings1 + holdings2
