@@ -116,13 +116,43 @@ def total_portfolio_cost(portfolio_file):
 
     return sum([stock["shares"] * stock["price"] for stock in portfolio])
 
-def filtered_portfolios(portfolio_file, cost_larger_than = 10000):
+
+def filtered_portfolios(portfolio_file, cost_larger_than=10000):
     portfolio = read_portfolio(portfolio_file)
 
-    return [s for s in portfolio if s['shares'] * s['price'] > cost_larger_than]
+    return [s for s in portfolio if s["shares"] * s["price"] > cost_larger_than]
+
 
 # portfolios_by_name('Data/portfolio.csv', {'MSFT'})
 def portfolios_by_name(portfolio_file, names_filter):
     portfolio = read_portfolio(portfolio_file)
 
     return [s for s in portfolio if s["name"] in names_filter]
+
+
+# Exercise 2.23 Set and Dictionary Comprehension
+def owned_shares(portfolio_file):
+    portfolio = read_portfolio(portfolio_file)
+
+    # Make unique set of stock names in portfolio (Set comprehension)
+    owned_stock_names = {s["name"] for s in portfolio}
+
+    # Make dictionary from the stock names (Dictionary comprehension)
+    owned_shares = {name: 0 for name in owned_stock_names}
+
+    # Fill the shares
+    for p in portfolio:
+        owned_shares[p["name"]] += p["shares"]
+
+    return owned_shares
+
+
+# Filter prices that only appear in portfolio
+def portfolio_prices(portfolio_file, prices_file):
+    prices = read_prices(prices_file)
+    portfolio = read_portfolio(portfolio_file)
+
+    # Make unique set of stock names in portfolio (Set comprehension)
+    owned_stock_names = {s["name"] for s in portfolio}
+
+    return {name: prices[name] for name in owned_stock_names}
